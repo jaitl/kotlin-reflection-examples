@@ -1,2 +1,2 @@
 rootProject.name = "kotlin-reflection-examples"
-include("app")
+include("examples")
