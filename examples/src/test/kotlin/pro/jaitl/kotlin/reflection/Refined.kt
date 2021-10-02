@@ -6,6 +6,6 @@ fun printType(clazz: KClass<*>) {
     println(clazz.qualifiedName)
 }
 
-inline fun <reified T : Any>printType() {
+inline fun <reified T>printType() {
     println(T::class.qualifiedName)
 }
