@@ -46,7 +46,7 @@ class ClassTraverseTest {
 
         val methods = clazz.memberFunctions
 
-        methods.forEach { println("name: ${it.name}, returns: ${it.call(data)}") }
+        methods.forEach { println("name: ${it.name}") }
     }
 
     @Test
