@@ -50,6 +50,18 @@ class ClassTraverseTest {
     }
 
     @Test
+    fun testCallsMethod() {
+        val data1 = MyClass(123, "test")
+        val data2 = MyClass(321, "tset")
+
+        val clazz = MyClass::class
+
+        val equalsMethod = clazz.memberFunctions.find { it.name == "equals" }!!
+
+        println("data1 equals data2: ${equalsMethod.call(data1, data2)}")
+    }
+
+    @Test
     fun testTraverseNestedClasses() {
         val data = MyClass(123, "test")
         val clazz = data::class
