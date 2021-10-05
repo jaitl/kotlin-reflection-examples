@@ -58,7 +58,9 @@ class ClassTraverseTest {
 
         val equalsMethod = clazz.memberFunctions.find { it.name == "equals" }!!
 
-        println("data1 equals data2: ${equalsMethod.call(data1, data2)}")
+        val result = equalsMethod.call(data1, data2)
+
+        println("data1 equals data2: $result")
     }
 
     @Test
