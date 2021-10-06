@@ -3,11 +3,19 @@ package pro.jaitl.kotlin.reflection
 import kotlin.reflect.full.declaredMemberFunctions
 import kotlin.reflect.full.memberFunctions
 import kotlin.reflect.full.memberProperties
+import kotlin.reflect.jvm.javaField
 import kotlin.test.Test
 
 class ClassTraverseTest {
+    annotation class FirstTestAnnotation
+    annotation class SecondTestAnnotation
 
-    class MyClass(val int: Int, val string: String) {
+    @FirstTestAnnotation
+    @SecondTestAnnotation
+    class MyClass(
+        @field:FirstTestAnnotation val int: Int,
+        @field:SecondTestAnnotation val string: String
+    ) {
 
         data class InternalClassDouble(val double: Double)
         data class InternalClassString(val string: String)
@@ -71,5 +79,22 @@ class ClassTraverseTest {
         val nestedClasses = clazz.nestedClasses
 
         nestedClasses.forEach { println("${it.qualifiedName}") }
+    }
+
+    @Test
+    fun testTraverseAnnotationsForClass() {
+        val clazz = MyClass::class
+        clazz.annotations.forEach { println("${it.annotationClass}") }
+    }
+
+    @Test
+    fun testTraverseAnnotationsForFields() {
+        val clazz = MyClass::class
+        val properties = clazz.memberProperties
+
+        properties.forEach { property ->
+            println("property name: ${property.name}")
+            property.javaField?.annotations?.forEach { println("annotation class: ${it.annotationClass}") }
+        }
     }
 }
